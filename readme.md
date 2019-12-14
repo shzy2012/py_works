@@ -1,5 +1,11 @@
 # 正则抽取
 
+![](https://img.shields.io/badge/python-3.7+-brightgreen)
+
+## Requirements
+
+- Python 3.7
+
 ## 手机号码
 
 ### 编号规则依据
