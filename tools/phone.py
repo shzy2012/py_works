@@ -10,7 +10,6 @@
 """
 
 import re
-from typing import List
 from dataclasses import dataclass
 
 from tools.utils.constant import (
@@ -33,14 +32,18 @@ from tools.utils.pattern import (
 class PhoneMatchedData(object):
     phone_num: str
     phone_type: str
+    line: int = 1
 
     def __str__(self):
         if self.phone_type == MOBILE_PHONE:
-            return MOBILE_PHONE_MATCHED_MSG.format(phone=self.phone_num)
+            return MOBILE_PHONE_MATCHED_MSG.format(phone=self.phone_num,
+                                                   line=self.line)
         elif self.phone_type == FIXED_TELEPHONE:
-            return FIXED_TELEPHONE_MATCHED_MSG.format(phone=self.phone_num)
+            return FIXED_TELEPHONE_MATCHED_MSG.format(phone=self.phone_num,
+                                                      line=self.line)
         else:
-            return DEFAULT_PHONE_MATCHED_MSG.format(phone=self.phone_num)
+            return DEFAULT_PHONE_MATCHED_MSG.format(phone=self.phone_num,
+                                                    line=self.line)
 
 
 class PhoneMatcher(object):
@@ -49,64 +52,80 @@ class PhoneMatcher(object):
         # self.matched: List[PhoneMatchedData] = []
         pass
 
-    def process(self, data, phone_type: str = DEFAULT_PHONE_TYPE):
+    def process(
+            self,
+            data,
+            phone_type: str = DEFAULT_PHONE_TYPE,
+            line: int = 1
+    ):
         """ 正则匹配输入字符串，并打印匹配值
 
         :param data: 待匹配的字符串
         :param phone_type: 需要匹配的号码类型，默认国内手机号
+        :param line: 行号
         """
         # 1. 根据规则对输入进行正则匹配
-        matched = self.match(data, phone_type)
+        matched = self.match(data, phone_type, line)
 
         # 2. 如果匹配不到，输入未匹配消息
-        if not matched:
-            print(NO_PHONE_MATCHED_MSG)
+        # if not matched:
+        #     print(NO_PHONE_MATCHED_MSG)
 
         # 3. 如果匹配到，依次输入匹配的内容
         for item in matched:
             print(item)
 
-    def match(self, data: str, phone_type: str = DEFAULT_PHONE_TYPE):
+    def match(
+            self,
+            data: str,
+            phone_type: str = DEFAULT_PHONE_TYPE,
+            line: int = 1
+    ):
         """ 正则匹配输入字符串 
         
         :param data: 待匹配的字符串
         :param phone_type: 需要匹配的号码类型，默认国内手机号
+        :param line: 行号
         """
         if phone_type == MOBILE_PHONE:
-            return self._match_mobile_phone(data)
+            return self._match_mobile_phone(data, line)
         elif phone_type == FIXED_TELEPHONE:
-            return self._match_fix_telephone(data)
+            return self._match_fix_telephone(data, line)
         else:
             print(PHONE_TYPE_UNSUPPORTED_MSG.format(phone_type=phone_type))
             return []
 
     @staticmethod
-    def _match_mobile_phone(data: str):
+    def _match_mobile_phone(data: str, line: int = 1):
         """ 正则匹配国内手机号
 
         :param data: 待匹配的字符串
+        :param line: 行号
         """
         matched = re.findall(MOBIL_PHONE_PATTERN, data)
         result = []
         for item in matched:
             result.append(PhoneMatchedData(
                 phone_num=item,
-                phone_type=MOBILE_PHONE
+                phone_type=MOBILE_PHONE,
+                line=line
             ))
         return result
 
     @staticmethod
-    def _match_fix_telephone(data: str):
+    def _match_fix_telephone(data: str, line: int = 1):
         """ 正则匹配国内固定电话
 
         :param data: 待匹配的字符串
+        :param line: 行号
         """
         matched = re.findall(FIXED_TELEPHONE_PATTERN, data)
         result = []
         for item in matched:
             result.append(PhoneMatchedData(
                 phone_num=item[0],
-                phone_type=FIXED_TELEPHONE
+                phone_type=FIXED_TELEPHONE,
+                line=line
             ))
         return result
 
