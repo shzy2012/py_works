@@ -12,7 +12,7 @@
 import os
 import sys
 
-from tools.ID import ID
+from tools.ID import IDMatcher
 from tools.address import AddressMatcher
 from tools.phone import PhoneMatcher
 from tools.task import Task
@@ -24,7 +24,7 @@ class FileMatcher(object):
     def __init__(self):
         self.address_matcher = AddressMatcher()
         self.phone_matcher = PhoneMatcher()
-        self.id_matcher = ID()
+        self.id_matcher = IDMatcher()
 
     @staticmethod
     def is_file_size_valid(file_path):
@@ -54,7 +54,7 @@ class FileMatcher(object):
         task = Task()
         task.add_works(self.address_matcher.process)\
             .add_works(self.phone_matcher.process)\
-            .add_works(self.id_matcher.Do)\
+            .add_works(self.id_matcher.process)\
             .process(file_path)
 
 
