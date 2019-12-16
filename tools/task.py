@@ -5,24 +5,21 @@
 以管道方式处理数据可
 """
 
-from itertools import islice
 
 class Task:
     def __init__(self):
-        self.works=[]
+        self.works = []
         
-    def AddWorks(self,func):
+    def add_works(self, func):
         self.works.append(func)
         return self
 
-    def Do(self,path):
+    def process(self, path):
         with open(path) as f:
-            while True:
-                next_n_lines = list(islice(f, 100))
-                if not next_n_lines:
-                    return next_n_lines
-                # process next_n_lines
-                result = next_n_lines
+            for line_no, line in enumerate(f.readlines()):
+                line = line.strip()
+                if not len(line):
+                    continue
+
                 for func in self.works:
-                    result = func(next_n_lines)
-                print(result)
+                    func(line, line=line_no+1)
