@@ -26,11 +26,12 @@ PHONE_TYPE_UNSUPPORTED_MSG = 'phone type unsupported: {phone_type}'
 NO_PHONE_MATCHED_MSG = "No Phone Matched"
 
 # 号码匹配默认提示消息
-DEFAULT_PHONE_MATCHED_MSG = "\033[31m[Line: {line}] phone matched: {phone}"
+DEFAULT_PHONE_MATCHED_MSG = "\033[31m[Line: {line}] phone matched: " \
+                            "{phone}\033[0m"
 
 # 国内手机号匹配提示消息
 MOBILE_PHONE_MATCHED_MSG = "\033[31m[Line: {line}] mobile_phone matched: " \
-                           "{phone}"
+                           "{phone}\033[0m"
 
 # 国内固定电话匹配提示消息
 FIXED_TELEPHONE_MATCHED_MSG = '[Line: {line}] fixed telephone matched: {phone}'
@@ -44,7 +45,7 @@ FIXED_TELEPHONE_MATCHED_MSG = '[Line: {line}] fixed telephone matched: {phone}'
 NO_ADDRESS_MATCHED_MSG = "No AddressMatchedData Matched"
 
 # 地址匹配提示消息
-ADDRESS_MATCHED_MSG = "\033[32m[Line: {line}] address matched: {address}"
+ADDRESS_MATCHED_MSG = "\033[32m[Line: {line}] address matched: {address}\033[0m"
 
 
 ####################
@@ -60,4 +61,4 @@ MALE = "男生"
 
 ID_NUMBER_MATCHED_MSG = "\033[35m[Line: {line}] ID matched: {id_number} " \
                         "(地址: {address}, 生日: {birthday}, 年龄: {age}, " \
-                        "星座: {constellation}, 性别: {sex})"
+                        "星座: {constellation}, 性别: {sex})\033[0m"
