@@ -42,6 +42,7 @@ class IDMatchedData(object):
         self.age = id_number_util.get_age()
         self.sex = id_number_util.get_sex()
         self.constellation = id_number_util.get_constellation()
+        self.birthday = id_number_util.get_birthday()
 
     def __str__(self):
         return ID_NUMBER_MATCHED_MSG.format(
